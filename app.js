@@ -1,14 +1,12 @@
-// app.js
-
-const readline = require('readline');
+const express = require('express');
 const { generateMeta } = require('./controllers/openaiController');
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+// app setup
+const app = express();
+app.listen(4000, () => console.log('listening for request on port 4000'));
 
-rl.question('YouTube Video Title: \n', async title => {
-  await generateMeta(title); // Ensure that `generateMeta` is awaited
-  rl.close(); // Close the readline interface after processing
-});
+// middleware
+app.use(express.json());
+
+// routes
+app.post('/openai/meta', generateMeta);

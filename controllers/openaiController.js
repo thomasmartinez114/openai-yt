@@ -2,7 +2,9 @@
 
 const openai = require('../config/openaiConfig');
 
-const generateMeta = async title => {
+const generateMeta = async (req, res) => {
+  const { title } = req.body;
+
   try {
     const description = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
@@ -26,10 +28,10 @@ const generateMeta = async title => {
       max_tokens: 100,
     });
 
-    // Check the structure of the response
-    // const description = response.choices[0].message.content;
-    console.log(description.choices[0].message.content);
-    console.log(tags.choices[0].message.content);
+    res.status(200).json({
+      description: description.choices[0].message.content,
+      tags: tags.choices[0].message.content,
+    });
   } catch (error) {
     console.error(
       'Error generating description:',
