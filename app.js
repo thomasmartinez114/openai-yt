@@ -1,5 +1,5 @@
 const express = require('express');
-const { generateMeta } = require('./controllers/openaiController');
+const { generateSOAP } = require('./controllers/openaiController');
 
 // app setup
 const app = express();
@@ -10,4 +10,4 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // routes
-app.post('/openai/meta', generateMeta);
+app.post('/openai/soap', generateSOAP);

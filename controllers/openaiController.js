@@ -2,8 +2,8 @@
 
 const openai = require('../config/openaiConfig');
 
-const generateMeta = async (req, res) => {
-  const { title } = req.body;
+const generateSOAP = async (req, res) => {
+  const { input } = req.body;
 
   try {
     const description = await openai.chat.completions.create({
@@ -11,33 +11,33 @@ const generateMeta = async (req, res) => {
       messages: [
         {
           role: 'user',
-          content: `Come up with a description for a YouTube video called "${title}"`,
+          content: `As a massage therapist, please provide me SOAP notes according to this information the patient has given me.  Here is the patient information: ${input}`,
         },
       ],
       max_tokens: 100,
     });
 
-    const tags = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        {
-          role: 'user',
-          content: `Come up with 10 keywords for a YouTube video called ${title}`,
-        },
-      ],
-      max_tokens: 100,
-    });
+    // const tags = await openai.chat.completions.create({
+    //   model: 'gpt-3.5-turbo',
+    //   messages: [
+    //     {
+    //       role: 'user',
+    //       content: `Come up with 10 keywords for a YouTube video called ${title}`,
+    //     },
+    //   ],
+    //   max_tokens: 100,
+    // });
 
     res.status(200).json({
       description: description.choices[0].message.content,
-      tags: tags.choices[0].message.content,
+      // tags: tags.choices[0].message.content,
     });
   } catch (error) {
     console.error(
-      'Error generating description:',
+      'Error generating SOAP:',
       error.response?.data || error.message
     );
   }
 };
 
-module.exports = { generateMeta };
+module.exports = { generateSOAP };

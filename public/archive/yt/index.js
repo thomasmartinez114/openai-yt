@@ -9,7 +9,7 @@ const tags = document.querySelector('.tags p');
 metaForm.addEventListener('submit', async e => {
   e.preventDefault();
 
-  const res = await fetch('/openai/soap', {
+  const res = await fetch('/openai/meta', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ title: metaForm.title.value }),
@@ -19,5 +19,5 @@ metaForm.addEventListener('submit', async e => {
   //   console.log(data);
 
   description.textContent = data.description;
-  // tags.textContent = data.tags.replace(/\n/g, ', '); // Replace newlines with commas
+  tags.textContent = data.tags.replace(/\n/g, ', '); // Replace newlines with commas
 });
