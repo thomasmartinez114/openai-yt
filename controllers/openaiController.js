@@ -11,7 +11,7 @@ const generateSOAP = async (req, res) => {
       messages: [
         {
           role: 'user',
-          content: `As a massage therapist, please provide me SOAP notes according to this information the patient has given me.  Here is the patient information: ${input}`,
+          content: `As a massage therapist, please generate SOAP notes according to this information provided by the patient.  Here is the patient information: ${input}`,
         },
       ],
       max_tokens: 100,
